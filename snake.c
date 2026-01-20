@@ -96,3 +96,20 @@ bool change_direction(Snake *s, char key) {
 
   return false;
 }
+
+bool grow_snake(Snake *s) {
+  if (!s)
+    return false;
+
+  Position *new_body = realloc(s->body, sizeof(Position) * (s->length + 1));
+
+  if (!new_body) {
+    return false;
+  }
+
+  s->body = new_body;
+  s->body[s->length] = s->body[s->length - 1];
+  s->length++;
+
+  return true;
+}

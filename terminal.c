@@ -66,3 +66,16 @@ void render_grid(const char grid[GRID_HEIGHT][GRID_WIDTH]) {
     putchar('\n');
   }
 }
+
+void draw_food_on_grid(char grid[GRID_HEIGHT][GRID_WIDTH], const Food *f) {
+  if (!f) {
+    return;
+  }
+
+  int x = f->x;
+  int y = f->y;
+
+  if (x >= 0 && x < GRID_WIDTH && y >= 0 && y < GRID_HEIGHT) {
+    grid[y][x] = '#';
+  }
+}

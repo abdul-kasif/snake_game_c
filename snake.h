@@ -23,4 +23,6 @@ void destroy_snake(Snake *s);
 void move_snake(Snake *s);
 bool change_direction(Snake *s, char key);
 
+bool grow_snake(Snake *s);
+
 #endif // !SNAKE_H
