@@ -2,13 +2,14 @@
 #include "snake.h"
 #include "terminal.h"
 #include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
 
 #define TICK_INTERVEL_MS 150
 
-typedef enum { GAME_RUNNING, GAME_OVER } GameState;
+typedef enum { GAME_RUNNING, GAME_PAUSED, GAME_OVER } GameState;
 
 bool snake_occupies(const Snake *s, int x, int y) {
   if (!s || s->length <= 0) {
@@ -75,7 +76,7 @@ int main(void) {
 
   while (running) {
 
-    while (state == GAME_RUNNING) {
+    while (state != GAME_OVER) {
       int key = read_key();
 
       if (key == 'q' || key == 'Q') {
@@ -86,22 +87,33 @@ int main(void) {
         change_direction(&snake, key);
       }
 
-      move_snake(&snake);
-
-      if (snake_hit_wall(&snake)) {
-        state = GAME_OVER;
-        break;
+      if (key == 'p' || key == 'P') {
+        if (state == GAME_RUNNING) {
+          printf("I am changing this;");
+          state = GAME_PAUSED;
+        } else if (state == GAME_PAUSED) {
+          state = GAME_RUNNING;
+        }
       }
 
-      if (snake_hit_self(&snake)) {
-        state = GAME_OVER;
-        break;
-      }
+      if (state == GAME_RUNNING) {
+        move_snake(&snake);
 
-      if (snake.body[0].x == food.x && snake.body[0].y == food.y) {
-        grow_snake(&snake);
-        food = spawn_food_safe(&snake);
-        score++;
+        if (snake_hit_wall(&snake)) {
+          state = GAME_OVER;
+          break;
+        }
+
+        if (snake_hit_self(&snake)) {
+          state = GAME_OVER;
+          break;
+        }
+
+        if (snake.body[0].x == food.x && snake.body[0].y == food.y) {
+          grow_snake(&snake);
+          food = spawn_food_safe(&snake);
+          score++;
+        }
       }
 
       clear_grid(grid);
@@ -110,12 +122,16 @@ int main(void) {
       clear_terminal();
       render_score(score);
       render_grid(grid);
+      if (state == GAME_PAUSED) {
+        render_paused();
+        usleep(10000);
+        continue;
+      }
 
       int delay_ms = compute_tick_delay_ms(score);
       usleep(delay_ms * 1000);
     }
 
-    clear_terminal();
     render_game_over_with_score(score);
 
     while (1) {

@@ -91,3 +91,9 @@ void render_game_over_with_score(const int score) {
   printf("\n   Press 'q' to quit\n");
   fflush(stdout);
 }
+
+void render_paused(void) {
+  printf("\n\n");
+  printf("   ===== PAUSED =====\n");
+  printf("   Press 'p' to resume\n");
+}
