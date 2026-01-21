@@ -39,6 +39,11 @@ int main(void) {
       break;
     }
 
+    if (snake_hit_self(&snake)) {
+      state = GAME_OVER;
+      break;
+    }
+
     if (snake.body[0].x == food.x && snake.body[0].y == food.y) {
       grow_snake(&snake);
       food = spawn_food();

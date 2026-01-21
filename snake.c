@@ -126,3 +126,20 @@ bool snake_hit_wall(const Snake *s) {
 
   return (x < 0 || x >= GRID_WIDTH || y < 0 || y >= GRID_HEIGHT);
 }
+
+bool snake_hit_self(const Snake *s) {
+  if (!s || s->length <= 0) {
+    return false;
+  }
+
+  int head_x = s->body[0].x;
+  int head_y = s->body[0].y;
+
+  for (int i = 1; i < s->length; i++) {
+    if (s->body[i].x == head_x && s->body[i].y == head_y) {
+      return true;
+    }
+  }
+
+  return false;
+}

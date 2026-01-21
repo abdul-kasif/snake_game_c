@@ -4,8 +4,8 @@
 #include "food.h"
 #include "snake.h"
 
-#define GRID_WIDTH 120
-#define GRID_HEIGHT 30
+#define GRID_WIDTH 80
+#define GRID_HEIGHT 20
 
 void enable_raw_mode(void);
 void disable_raw_mode(void);

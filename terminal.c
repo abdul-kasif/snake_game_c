@@ -81,6 +81,7 @@ void draw_food_on_grid(char grid[GRID_HEIGHT][GRID_WIDTH], const Food *f) {
 }
 
 void render_game_over(void) {
+  usleep(500 * 1000);
   clear_terminal();
   printf("\n\n");
   printf("   =====================\n");

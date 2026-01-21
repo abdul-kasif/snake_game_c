@@ -26,5 +26,6 @@ bool change_direction(Snake *s, char key);
 bool grow_snake(Snake *s);
 
 bool snake_hit_wall(const Snake *s);
+bool snake_hit_self(const Snake *s);
 
 #endif // !SNAKE_H
