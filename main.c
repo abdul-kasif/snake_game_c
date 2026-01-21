@@ -18,6 +18,7 @@ int main(void) {
   Food food = spawn_food();
 
   char grid[GRID_HEIGHT][GRID_WIDTH];
+  int score = 0;
 
   srand((unsigned int)time(NULL));
 
@@ -47,11 +48,14 @@ int main(void) {
     if (snake.body[0].x == food.x && snake.body[0].y == food.y) {
       grow_snake(&snake);
       food = spawn_food();
+      score++;
     }
 
     clear_grid(grid);
     draw_snake_on_grid(grid, &snake);
     draw_food_on_grid(grid, &food);
+    clear_terminal();
+    render_score(score);
     render_grid(grid);
 
     usleep(TICK_INTERVEL_MS * 1000);
@@ -59,7 +63,7 @@ int main(void) {
 
   if (state == GAME_OVER) {
     destroy_snake(&snake);
-    render_game_over();
+    render_game_over_with_score(score);
     while (read_key() == -1) {
       usleep(TICK_INTERVEL_MS * 100);
     }

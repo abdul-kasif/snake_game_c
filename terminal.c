@@ -57,8 +57,6 @@ void draw_snake_on_grid(char grid[GRID_HEIGHT][GRID_WIDTH], const Snake *s) {
 }
 
 void render_grid(const char grid[GRID_HEIGHT][GRID_WIDTH]) {
-  clear_terminal();
-
   for (int y = 0; y < GRID_HEIGHT; y++) {
     for (int x = 0; x < GRID_WIDTH; x++) {
       putchar(grid[y][x]);
@@ -80,13 +78,16 @@ void draw_food_on_grid(char grid[GRID_HEIGHT][GRID_WIDTH], const Food *f) {
   }
 }
 
-void render_game_over(void) {
+void render_score(const int score) { printf("Score: %d\n\n", score); }
+
+void render_game_over_with_score(const int score) {
   usleep(500 * 1000);
   clear_terminal();
   printf("\n\n");
   printf("   =====================\n");
   printf("        GAME OVER\n");
   printf("   =====================\n");
+  printf("\n   Final Score: %d\n", score);
   printf("\n   Press any key to exit\n");
   fflush(stdout);
 }

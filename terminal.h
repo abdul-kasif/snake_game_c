@@ -18,6 +18,7 @@ void render_grid(const char grid[GRID_HEIGHT][GRID_WIDTH]);
 
 void draw_food_on_grid(char grid[GRID_HEIGHT][GRID_WIDTH], const Food *f);
 
-void render_game_over(void);
+void render_score(const int score);
+void render_game_over_with_score(const int score);
 
 #endif // !TERMINAL_H
