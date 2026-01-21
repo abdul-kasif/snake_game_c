@@ -3,7 +3,7 @@
 
 #include <stdbool.h>
 
-#define INITIAL_SNAKE_LENGTH 3;
+#define INITIAL_SNAKE_LENGTH 3
 
 typedef struct {
   int x;

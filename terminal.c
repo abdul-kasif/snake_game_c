@@ -82,7 +82,6 @@ void render_score(const int score) { printf("Score: %d\n\n", score); }
 
 void render_game_over_with_score(const int score) {
   usleep(500 * 1000);
-  clear_terminal();
   printf("\n\n");
   printf("   =====================\n");
   printf("        GAME OVER\n");

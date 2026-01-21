@@ -10,6 +10,30 @@
 
 typedef enum { GAME_RUNNING, GAME_OVER } GameState;
 
+bool snake_occupies(const Snake *s, int x, int y) {
+  if (!s || s->length <= 0) {
+    return false;
+  }
+
+  for (int i = 0; i < s->length; i++) {
+    if (s->body[i].x == x && s->body[i].y == y) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+static Food spawn_food_safe(const Snake *snake) {
+  Food food;
+
+  do {
+    food = spawn_food();
+  } while (snake_occupies(snake, food.x, food.y));
+
+  return food;
+}
+
 static int compute_tick_delay_ms(const int score) {
   const int base_delay = 150;
   const int min_delay = 50;
@@ -42,7 +66,7 @@ int main(void) {
   GameState state = GAME_RUNNING;
 
   Snake snake = create_snake();
-  Food food = spawn_food();
+  Food food = spawn_food_safe(&snake);
 
   char grid[GRID_HEIGHT][GRID_WIDTH];
   int score = 0;
@@ -76,7 +100,7 @@ int main(void) {
 
       if (snake.body[0].x == food.x && snake.body[0].y == food.y) {
         grow_snake(&snake);
-        food = spawn_food();
+        food = spawn_food_safe(&snake);
         score++;
       }
 
@@ -91,6 +115,7 @@ int main(void) {
       usleep(delay_ms * 1000);
     }
 
+    clear_terminal();
     render_game_over_with_score(score);
 
     while (1) {
