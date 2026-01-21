@@ -88,6 +88,7 @@ void render_game_over_with_score(const int score) {
   printf("        GAME OVER\n");
   printf("   =====================\n");
   printf("\n   Final Score: %d\n", score);
-  printf("\n   Press any key to exit\n");
+  printf("\n   Press 'r' to restart\n");
+  printf("\n   Press 'q' to quit\n");
   fflush(stdout);
 }
