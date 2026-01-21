@@ -7,9 +7,16 @@
 #define GRID_WIDTH 80
 #define GRID_HEIGHT 20
 
+typedef struct {
+  int cols;
+  int rows;
+} TerminalSize;
+
 void enable_raw_mode(void);
 void disable_raw_mode(void);
 int read_key(void);
+
+TerminalSize get_terminal_size(void);
 
 void clear_terminal(void);
 void clear_grid(char grid[GRID_HEIGHT][GRID_WIDTH]);

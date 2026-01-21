@@ -7,7 +7,7 @@
 #include <time.h>
 #include <unistd.h>
 
-#define TICK_INTERVEL_MS 150
+#define SCREEN_WAIT_TIME 400000
 
 typedef enum { GAME_RUNNING, GAME_PAUSED, GAME_OVER } GameState;
 
@@ -132,6 +132,8 @@ int main(void) {
       usleep(delay_ms * 1000);
     }
 
+    usleep(SCREEN_WAIT_TIME);
+    clear_terminal();
     render_game_over_with_score(score);
 
     while (1) {
